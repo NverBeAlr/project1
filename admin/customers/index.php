@@ -20,7 +20,7 @@
     <a href="create.php">
         <button class="button-name" role="button">add new customer</button>
     </a>
-    <table border="1px" cellpadding="0" cellspacing="0" width="100%">
+    <table class="table table-striped table-hover">
         <tr>
             <th>Id</th>
             <th>Name</th>
@@ -58,10 +58,14 @@
                     <?php echo $customer['DESCRIPTION']; ?>
                 </td>
                 <td>
-                    <a href="edit.php?id=<?php echo $customer['CUS_ID']; ?>">Edit</a>
+                    <a href="edit.php?id=<?php echo $customer['CUS_ID']; ?>">
+                        <button class="vista-button"><div>Edit</div></button>
+                    </a>
                 </td>
                 <td>
-                    <a href="delete.php?id=<?php echo $customer['CUS_ID']; ?>">Delete</a>
+                    <a href="delete.php?id=<?php echo $customer['CUS_ID']; ?>">
+                        <button class="vista-button"><div>Delete</div></button>
+                    </a>
                 </td>
             </tr>
         <?php

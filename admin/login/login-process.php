@@ -4,13 +4,13 @@
     $username = $_POST["username"];
     $password = $_POST["password"];
     //Mở kết nối
-    include_once "../connection/open.php";
+    include_once "../../connection/open.php";
     //viết sql
     $sql = "SELECT *, COUNT(ADMIN_ID) AS count_id FROM admins WHERE USERNAME='$username'";
     //chạy sql
     $result = mysqli_query($connection, $sql);
     //đóng kết nối
-    include_once "../connection/close.php";
+    include_once "../../connection/close.php";
     //kiểm tra username và password có đúng không
     foreach ($result as $row){
         if($row['count_id'] == 0){
