@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>customers</title>
+    <link rel="stylesheet" href="../layouts/style.css">
+</head>
+<body>
+    <?php
+        include_once "../layouts/header.php";
+    ?>
+    <?php
+        include_once "../../connection/open.php";
+        $sql = "SELECT * FROM customers";
+        $customers = mysqli_query($connection, $sql);
+        include_once "../../connection/close.php";
+    ?>
+    <a href="create.php">
+        <button class="button-name" role="button">add new customer</button>
+    </a>
+    <table border="1px" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>email</th>
+            <th>gender</th>
+            <th>phone</th>
+            <th>address</th>
+            <th>description</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <?php
+            foreach ($customers as $customer) {
+        ?>
+            <tr>
+                <td>
+                    <?php echo $customer['CUS_ID']; ?>
+                </td>
+                <td>
+                    <?php echo $customer['NAME']; ?>
+                </td>
+                <td>
+                    <?php echo $customer['EMAIL']; ?>
+                </td>
+                <td>
+                    <?php echo $customer['GENDER'];?>
+                </td>
+                <td>
+                    <?php echo $customer['PHONE_NUMBER']; ?>
+                </td>
+                <td>
+                    <?php echo $customer['ADDRESS']; ?>
+                </td>
+                <td>
+                    <?php echo $customer['DESCRIPTION']; ?>
+                </td>
+                <td>
+                    <a href="edit.php?id=<?php echo $customer['CUS_ID']; ?>">Edit</a>
+                </td>
+                <td>
+                    <a href="delete.php?id=<?php echo $customer['CUS_ID']; ?>">Delete</a>
+                </td>
+            </tr>
+        <?php
+            }
+        ?>
+    </table>
+    <?php
+        include_once "../layouts/footer.php";
+    ?>
+</body>
+</html>
