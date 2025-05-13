@@ -20,6 +20,13 @@
     mysqli_query($connection, $sql);
     //đóng kêt nối
     include_once "../../connection/close.php";
+    //Kiểm tra nếu ảnh chưa có trong thư mục image thì copy ảnh vào thư mục image
+    if(!file_exists("../image/" . $image)){
+        // lấy path của ảnh
+        $path = $_FILES['image']['tmp_name'];
+        //lưu ảnh vào thư mục image
+        move_uploaded_file($path, "../image/" . $image);
+    }
     //quay về danh sách
     header("Location: index.php");
 ?>

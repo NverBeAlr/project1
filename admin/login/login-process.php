@@ -13,7 +13,7 @@
     include_once "../../connection/close.php";
     //kiểm tra username và password có đúng không
     foreach ($result as $row){
-        if($row['count_id'] == 0){
+        if($row['count_id'] == 0 ){
             //quay về trang login
             header("Location: login.php");
         } else {
@@ -21,7 +21,7 @@
             $_SESSION['ADMIN_ID'] = $row['ADMIN_ID'];
             $_SESSION['USERNAME'] = $row['USERNAME'];
             //quay về trang admin
-            header("location: ../layouts/layout.php");
+            header("location: ../admins/index.php");
         }
     }
 ?>

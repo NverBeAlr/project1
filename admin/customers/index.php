@@ -1,34 +1,109 @@
 <!DOCTYPE html>
-<<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>customers</title>
+    <title>Trang thông tin khách hàng</title>
     <link rel="stylesheet" href="../layouts/style.css">
+    <style>
+        /* CSS cho cửa sổ nổi (modal) */
+        .modal {
+            display: none; /* Ẩn modal mặc định */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Màu nền mờ */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal-buttons .confirm {
+            background-color: #d9534f;
+            color: white;
+        }
+
+        .modal-buttons .cancel {
+            background-color: #5bc0de;
+            color: white;
+        }
+    </style>
+    <script>
+        // Hàm hiển thị modal
+        function showModal(deleteUrl) {
+            const modal = document.getElementById('deleteModal');
+            const confirmButton = document.getElementById('confirmDelete');
+
+            // Hiển thị modal
+            modal.style.display = 'block';
+
+            // Gắn URL xóa vào nút xác nhận
+            confirmButton.onclick = function () {
+                window.location.href = deleteUrl;
+            };
+        }
+
+        // Hàm đóng modal
+        function closeModal() {
+            const modal = document.getElementById('deleteModal');
+            modal.style.display = 'none';
+        }
+    </script>
 </head>
 <body>
     <?php
+        session_start();
+        if(empty($_SESSION['USERNAME'])){
+            header('Location: ../login/login.php');
+        }
         include_once "../layouts/header.php";
     ?>
     <?php
+        // Mở kết nối
         include_once "../../connection/open.php";
+        // Viết SQL
         $sql = "SELECT * FROM customers";
+        // Chạy query
         $customers = mysqli_query($connection, $sql);
+        // Đóng kết nối
         include_once "../../connection/close.php";
+        // Hiển thị dữ liệu
     ?>
     <a href="create.php">
-        <button class="button-name" role="button">add new customer</button>
+        <button class="button-name" role="button">Thêm một khách hàng mới</button>
     </a>
     <table class="table table-striped table-hover">
         <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>email</th>
-            <th>gender</th>
-            <th>phone</th>
-            <th>address</th>
-            <th>description</th>
+            <th>STT</th>
+            <th>Tên khách hàng</th>
+            <th>Email</th>
+            <th>Giới tính</th>
+            <th>SĐT</th>
+            <th>Địa chỉ</th>
+            <th>Thông tin khách hàng</th>
             <th></th>
             <th></th>
         </tr>
@@ -46,7 +121,7 @@
                     <?php echo $customer['EMAIL']; ?>
                 </td>
                 <td>
-                    <?php echo $customer['GENDER'];?>
+                    <?php echo $customer['GENDER']; ?>
                 </td>
                 <td>
                     <?php echo $customer['PHONE_NUMBER']; ?>
@@ -59,21 +134,30 @@
                 </td>
                 <td>
                     <a href="edit.php?id=<?php echo $customer['CUS_ID']; ?>">
-                        <button class="vista-button"><div>Edit</div></button>
+                        <button class="vista-button"><div>Chỉnh sửa</div></button>
                     </a>
                 </td>
                 <td>
-                    <a href="delete.php?id=<?php echo $customer['CUS_ID']; ?>">
-                        <button class="vista-button"><div>Delete</div></button>
-                    </a>
+                    <!-- Thêm sự kiện onclick để hiển thị modal -->
+                    <button class="vista-button" onclick="showModal('delete.php?id=<?php echo $customer['CUS_ID']; ?>')">
+                        <div>Xóa</div>
+                    </button>
                 </td>
             </tr>
         <?php
             }
         ?>
     </table>
-    <?php
-        include_once "../layouts/footer.php";
-    ?>
+
+    <!-- Modal xác nhận xóa -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <p>Bạn có chắc chắn muốn xóa không?</p>
+            <div class="modal-buttons">
+                <button id="confirmDelete" class="confirm">Xóa</button>
+                <button class="cancel" onclick="closeModal()">Hủy</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

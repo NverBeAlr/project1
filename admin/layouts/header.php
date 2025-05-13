@@ -7,23 +7,21 @@
         </a>
 
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="http://localhost:8080/pj1php/project1/admin/layouts/layout.php#" class="nav-link px-2 text-secondary">Home</a></li>
-          <li><a href="http://localhost:8080/pj1php/project1/admin/customers/index.php" class="nav-link px-2 text-white">customer</a></li>
-          <li><a href="http://localhost:8080/pj1php/project1/admin/brands/index.php#" class="nav-link px-2 text-white">brand</a></li>
-          <li><a href="http://localhost:8080/pj1php/project1/admin/products/index.php" class="nav-link px-2 text-white">product</a></li>
-          <li><a href="http://localhost:8080/pj1php/project1/admin/types/index.php#" class="nav-link px-2 text-white">type</a></li>
-          <li><a href="http://localhost:8080/pj1php/project1/admin/payment%20methods/index.php#" class="nav-link px-2 text-white">payment method</a></li>
-          <li><a href="http://localhost:8080/pj1php/project1/admin/admins/index.php#" class="nav-link px-2 text-white">admin</a></li>
+          <li><a href="/pj1php/project1/admin/customers/index.php" class="nav-link px-2 text-white">khách Hàng</a></li>
+          <li><a href="/pj1php/project1/admin/brands/index.php" class="nav-link px-2 text-white">nhãn hàng</a></li>
+          <li><a href="/pj1php/project1/admin/products/index.php" class="nav-link px-2 text-white">sản phẩm</a></li>
+          <li><a href="/pj1php/project1/admin/types/index.php" class="nav-link px-2 text-white">kiểu máy</a></li>
+          <li><a href="/pj1php/project1/admin/payment%20methods/index.php" class="nav-link px-2 text-white">phương thức thanh toán</a></li>
+          <li><a href="/pj1php/project1/admin/admins/index.php" class="nav-link px-2 text-white">admin</a></li>
         </ul>
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+        <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
           <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-        </form>
+        </form> -->
 
         <div class="text-end">
-          <button type="button" class="btn btn-outline-light me-2">Login</button>
-          <button type="button" class="btn btn-warning">Sign-up</button>
-        </div>
+          <a href="../login/logout.php" class="btn btn-warning text-white">Đăng xuất</a></div>
+      </div>
       </div>
     </div>
   </header>
