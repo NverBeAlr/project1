@@ -15,9 +15,9 @@
           <li><a href="/pj1php/project1/admin/admins/index.php" class="nav-link px-2 text-white">admin</a></li>
         </ul>
 
-        <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
-        </form> -->
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get" action="">
+          <input type="search" name="keyword" class="form-control form-control-dark" placeholder="Search..." aria-label="Search" value="<?php if(isset($_GET["keyword"])){echo $_GET["keyword"];}?>">
+        </form>
 
         <div class="text-end">
           <a href="../login/logout.php" class="btn btn-warning text-white">Đăng xuất</a></div>

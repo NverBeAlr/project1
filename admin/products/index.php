@@ -74,6 +74,9 @@
     </script>
 </head>
 <body>
+    <p>
+        <a href="#">Trang chủ</a> > <a href="#">Danh sách sản phẩm</a>
+    </p>
     <?php
         session_start();
         if(empty($_SESSION['USERNAME'])){
@@ -87,7 +90,8 @@
         // Số bản ghi trên 1 trang
         $recordPerPage = 3;
         // Query Lấy được tổng số bản ghi
-        $sqlCountRecords = "SELECT COUNT(*) AS total FROM products";
+        $sqlCountRecords = "SELECT COUNT(*) AS total FROM products
+                            WHERE products.NAME LIKE '%$keyword%'";
         // Chạy SQL
         $countRecords = mysqli_query($connection, $sqlCountRecords);
         // Lấy tổng số bản ghi
@@ -98,12 +102,25 @@
         $pages = ceil($totalRecords / $recordPerPage);
         // Lấy trang hiện tại
         if (isset($_GET['page'])) {
-            $currentPage = $_GET['page'];
+            $Page = $_GET['page'];
         } else {
-            $currentPage = 1;
+            $Page = 1;
         }
         // Tính chỉ số bắt đầu
-        $start = ($currentPage - 1) * $recordPerPage;
+        $start = ($Page - 1) * $recordPerPage;
+        // Lấy từ khóa tìm kiếm
+        if(isset($_GET["keyword"])){
+            $keyword = $_GET["keyword"];
+        } else {
+            // Viết SQL
+            $keyword = "";
+        }
+        // Viết SQL
+        $sql = "SELECT products.*, brands.NAME AS brand_name, types.NAME AS type_name 
+                FROM products INNER JOIN brands ON brands.BRAND_ID = products.BRAND_ID 
+                INNER JOIN types ON types.TYPE_ID = products.TYPE_ID 
+                WHERE products.NAME LIKE '%$keyword%' 
+                LIMIT $start, $recordPerPage";
         // Viết SQL lấy dữ liệu
         $sql = "SELECT products.*, brands.NAME AS brand_name, types.NAME AS type_name FROM products INNER JOIN brands ON brands.BRAND_ID = products.BRAND_ID INNER JOIN types ON types.TYPE_ID = products.TYPE_ID";
         // Chạy query
@@ -188,6 +205,24 @@
                     </button>
                 </td>
             </tr>
+        <?php
+            }
+            for($page = 1; $page <= $pages; $page++){
+                if($keyword == ""){
+        ?>
+            <a href="?page=<?php echo $page; ?>"> 
+                <?php echo $page; ?>
+            </a>
+        <?php
+            } else {
+        ?>
+            <a href="?page=<?php echo $page; ?>&&keyword<?php echo $keyword; ?> "> 
+                    <?php echo $page; ?>
+                </a>
+        <?php
+            }
+        ?>
+                
         <?php
             }
         ?>
